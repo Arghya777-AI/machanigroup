@@ -1,26 +1,100 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-navy: #0A2F6B;
+  --color-blue: #1B6FD8;
+  --color-sky: #E6F1FB;
+  --color-ice: #B5D4F4;
+  --color-teal: #0F6E56;
+  --color-mint: #E1F5EE;
+  --color-gold: #BA7517;
+  --color-gold-bg: #FAEEDA;
+  --color-off-white: #F9FAFB;
+  --color-dark-gray: #374151;
+  --color-mid-gray: #9CA3AF;
+
+  --font-sans: var(--font-plus-jakarta), sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html {
+  scroll-behavior: smooth;
+  background-color: #0A2F6B;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-plus-jakarta), Arial, Helvetica, sans-serif;
+  color: #374151;
+  background-color: #F9FAFB;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #061a3e;
+}
+::-webkit-scrollbar-thumb {
+  background: #0A2F6B;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #1B6FD8;
+}
+
+/* Floating dots animation */
+@keyframes floatDot {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.15;
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(-10px) translateX(-5px);
+    opacity: 0.1;
+  }
+  75% {
+    transform: translateY(-30px) translateX(5px);
+    opacity: 0.2;
+  }
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: #B5D4F4;
+  animation: floatDot linear infinite;
+  pointer-events: none;
+}
+
+/* Orbit animation */
+@keyframes slowOrbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.orbit-group {
+  animation: slowOrbit 60s linear infinite;
+  transform-origin: center;
+}
+
+.orbit-group:hover {
+  animation-play-state: paused;
+}
+
+/* Counter-rotate text labels inside orbit */
+@keyframes counterOrbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
 }
