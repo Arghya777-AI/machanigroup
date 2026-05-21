@@ -133,35 +133,7 @@ export default function SiteApp({
           </motion.div>
         </AnimatePresence>
 
-        {/* Bottom navigation arrows */}
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4">
-        <button
-          onClick={() => navigate(-1)}
-          disabled={currentPage === 0}
-          aria-label="Previous page"
-          className={`w-9 h-9 rounded-full border backdrop-blur flex items-center justify-center transition-all disabled:opacity-20 disabled:cursor-default cursor-pointer ${
-            isDark
-              ? "border-white/20 bg-white/10 text-white hover:bg-white/20"
-              : "border-[#0A2F6B]/20 bg-[#0A2F6B]/5 text-[#0A2F6B] hover:bg-[#0A2F6B]/10"
-          }`}
-        >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 11L3 7l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M11 7H3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-        </button>
-        <span className={`text-xs font-mono tabular-nums ${isDark ? "text-white/40" : "text-[#0A2F6B]/40"}`}>
-          {String(currentPage + 1).padStart(2, "0")} / {String(totalPages).padStart(2, "0")}
-        </span>
-        <button
-          onClick={() => navigate(1)}
-          disabled={currentPage === totalPages - 1}
-          aria-label="Next page"
-          className={`w-9 h-9 rounded-full border backdrop-blur flex items-center justify-center transition-all disabled:opacity-20 disabled:cursor-default cursor-pointer ${
-            isDark
-              ? "border-white/20 bg-white/10 text-white hover:bg-white/20"
-              : "border-[#0A2F6B]/20 bg-[#0A2F6B]/5 text-[#0A2F6B] hover:bg-[#0A2F6B]/10"
-          }`}
-        >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 7h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-        </button>
+        {/* Bottom navigation removed temporarily for build fix */}
       </div>
     </div>
   );
