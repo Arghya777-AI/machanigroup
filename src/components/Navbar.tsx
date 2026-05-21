@@ -1,112 +1,133 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-const navLinks = [
-  { label: "Robotics", href: "#robotics" },
-  { label: "Longevity", href: "#longevity" },
-  { label: "AR/VR", href: "#arvr" },
-  { label: "AI Services", href: "#ai-services" },
-  { label: "Drones", href: "#drones" },
-  { label: "Students", href: "#students" },
-  { label: "About", href: "#about" },
+const navItems = [
+  { label: "Robotics", href: "/robotics" },
+  { label: "Longevity", href: "/longevity" },
+  { label: "AR / VR", href: "/arvr" },
+  { label: "AI Services", href: "/ai-services" },
+  { label: "Vision", href: "/vision" },
+  { label: "Drones", href: "/drones" },
+  { label: "Students", href: "/students" },
+  { label: "About", href: "/about" },
 ];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    const fn = () => setScrolled(window.scrollY > 24);
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const id = href.replace("#", "");
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-      setIsOpen(false);
-    }
-  };
-
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "backdrop-blur-md bg-[#0A2F6B]/95 shadow-lg" : "bg-[#0A2F6B]"
-      }`}
+    <header
+      className="fixed inset-x-0 top-0 z-50 h-16 transition-all duration-300"
+      style={{
+        background: scrolled ? "rgba(247,246,242,0.95)" : "rgba(247,246,242,0.75)",
+        backdropFilter: "blur(16px)",
+        borderBottom: `1px solid ${scrolled ? "#E0DDD5" : "transparent"}`,
+        boxShadow: scrolled ? "0 1px 24px rgba(0,0,0,0.06)" : "none",
+      }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
-              <div className="font-bold text-white text-base leading-tight">
-                FGCU AI Innovation Center
-              </div>
-              <div className="text-[#B5D4F4] text-[10px] leading-tight">
-                Powered by The Next New AI Venture Studio
-              </div>
-            </a>
-          </div>
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 h-full flex items-center justify-between gap-8">
 
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleScroll(e, link.href)}
-                className="text-white text-sm font-medium hover:text-[#B5D4F4] transition-colors duration-200"
-              >
-                {link.label}
-              </a>
-            ))}
-            <a
-              href="#about"
-              onClick={(e) => handleScroll(e, "#about")}
-              className="ml-2 bg-[#1B6FD8] text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-[#1558b0] transition-colors duration-200"
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-3 flex-shrink-0">
+          <div className="relative w-10 h-10">
+            <Image src="/FGCU.png" alt="FGCU" fill sizes="40px" className="object-contain" />
+          </div>
+          <div className="hidden sm:flex items-center gap-2.5">
+            <span className="text-[#111118] font-bold text-sm tracking-tight">FGCU</span>
+            <span className="w-px h-3.5 bg-[#C8C4BA]" />
+            <span className="text-[#9A9590] text-[11px] font-medium">AI Innovation Center</span>
+          </div>
+        </Link>
+
+        {/* Desktop nav */}
+        <nav className="hidden lg:flex items-center gap-7">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`text-[12px] font-medium transition-colors duration-200 ${
+                pathname === item.href
+                  ? "text-[#111118]"
+                  : "text-[#9A9590] hover:text-[#111118]"
+              }`}
             >
-              Partner With Us
-            </a>
-          </div>
+              {item.label}
+            </Link>
+          ))}
+        </nav>
 
-          {/* Mobile hamburger */}
+        {/* CTA + mobile toggle */}
+        <div className="flex items-center gap-4">
+          <Link
+            href="/about"
+            className="hidden sm:inline-flex items-center gap-2 px-5 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-white transition-colors duration-200 rounded-md"
+            style={{ background: "#1B4FD8" }}
+            onMouseEnter={e => (e.currentTarget.style.background = "#1640B8")}
+            onMouseLeave={e => (e.currentTarget.style.background = "#1B4FD8")}
+          >
+            Partner
+          </Link>
           <button
-            className="md:hidden text-white p-2"
-            onClick={() => setIsOpen(!isOpen)}
+            className="lg:hidden text-[#6E6B64] hover:text-[#111118] p-1 transition-colors"
+            onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              {open ? (
+                <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              ) : (
+                <path d="M3 5.5h14M3 10h14M3 14.5h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              )}
+            </svg>
           </button>
         </div>
       </div>
 
       {/* Mobile menu */}
-      {isOpen && (
-        <div className="md:hidden bg-[#0A2F6B] border-t border-[#1B6FD8]/30 px-4 py-4 space-y-3">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={(e) => handleScroll(e, link.href)}
-              className="block text-white text-sm font-medium py-2 hover:text-[#B5D4F4] transition-colors"
+      {open && (
+        <div
+          className="lg:hidden border-t px-5 py-6 space-y-1"
+          style={{
+            background: "rgba(245,243,238,0.98)",
+            backdropFilter: "blur(14px)",
+            borderColor: "#D8D4CC",
+          }}
+        >
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setOpen(false)}
+              className={`block text-sm font-medium py-3 border-b transition-colors ${
+                pathname === item.href ? "text-[#111118]" : "text-[#9A9590] hover:text-[#111118]"
+              }`}
+              style={{ borderColor: "#E8E4DC" }}
             >
-              {link.label}
-            </a>
+              {item.label}
+            </Link>
           ))}
-          <a
-            href="#about"
-            onClick={(e) => handleScroll(e, "#about")}
-            className="block bg-[#1B6FD8] text-white text-sm font-semibold px-4 py-2 rounded-full text-center hover:bg-[#1558b0] transition-colors"
+          <Link
+            href="/about"
+            onClick={() => setOpen(false)}
+            className="block mt-5 px-6 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white bg-[#1B4FD8] text-center rounded-md"
+            style={{ borderRadius: "2px" }}
           >
             Partner With Us
-          </a>
+          </Link>
         </div>
       )}
-    </nav>
+    </header>
   );
 }

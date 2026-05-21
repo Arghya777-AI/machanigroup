@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 const particles = Array.from({ length: 20 }, (_, i) => ({
   id: i,
@@ -28,9 +28,10 @@ const stats = [
   { value: "98.48%", label: "Marieb NCLEX pass rate" },
 ];
 
+const subscribe = () => () => {};
+
 export default function Hero() {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const mounted = useSyncExternalStore(subscribe, () => true, () => false);
 
   const handleScroll = (id: string) => {
     const el = document.getElementById(id);

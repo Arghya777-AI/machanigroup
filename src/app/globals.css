@@ -18,7 +18,7 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: #0A2F6B;
+  background-color: #F7F6F2;
 }
 
 * {
@@ -29,8 +29,8 @@ html {
 
 body {
   font-family: var(--font-plus-jakarta), Arial, Helvetica, sans-serif;
-  color: #374151;
-  background-color: #F9FAFB;
+  color: #0F1A2E;
+  background-color: #F7F6F2;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -70,6 +70,52 @@ body {
   }
 }
 
+/* Horizontal scan beam (telemetry panel) */
+@keyframes scanBeam {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(600%);  }
+}
+
+/* Vertical scan sweep (domain cards) */
+@keyframes scanV {
+  0%   { top: -4px; opacity: 1; }
+  85%  { opacity: 0.6; }
+  100% { top: 105%; opacity: 0; }
+}
+
+/* Live indicator blink */
+@keyframes liveBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+
+/* Slow pulse ring */
+@keyframes pulseRing {
+  0%   { transform: scale(1);    opacity: 0.6; }
+  100% { transform: scale(2.2);  opacity: 0; }
+}
+
+.scan-beam-h {
+  animation: scanBeam 6s linear infinite;
+}
+
+.scan-beam-v {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  animation: scanV 0.7s ease-out forwards;
+  pointer-events: none;
+}
+
+.blink-live {
+  animation: liveBlink 1.8s ease-in-out infinite;
+}
+
+.pulse-ring {
+  animation: pulseRing 2s ease-out infinite;
+}
+
 .particle {
   position: absolute;
   border-radius: 50%;
@@ -97,4 +143,31 @@ body {
 @keyframes counterOrbit {
   from { transform: rotate(0deg); }
   to { transform: rotate(-360deg); }
+}
+
+/* Premium selection color */
+::selection {
+  background-color: #1B6FD8;
+  color: #ffffff;
+}
+
+/* Smooth image loading */
+img {
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Premium focus rings */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #1B6FD8;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Section transition refinement */
+section {
+  position: relative;
 }

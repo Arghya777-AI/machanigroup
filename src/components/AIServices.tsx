@@ -1,119 +1,236 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import SectionHeader from "@/components/ui/SectionHeader";
-import SectionBadge from "@/components/ui/SectionBadge";
-import FeatureGrid from "@/components/ui/FeatureGrid";
 import CaseStudyBlock from "@/components/ui/CaseStudyBlock";
 
-const aiServicesGrid = [
-  { title: "Data Capture", description: "Structured and unstructured healthcare data collection from EHR systems, clinical notes, imaging, and wearable devices." },
-  { title: "Computer Vision", description: "Medical imaging analysis, wound assessment, mobility monitoring, and real-time clinical environment surveillance." },
-  { title: "NLP", description: "Clinical notes processing, patient communication summarization, literature review automation, and diagnostic coding assistance." },
-  { title: "Pipelines", description: "End-to-end MLOps pipelines from data ingestion through model training, validation, deployment, and monitoring." },
+const fade = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55 } },
+};
+
+const aiServicesCapabilities = [
+  {
+    title: "Clinical & Care-Environment Data Collection",
+    description: "Structured and unstructured healthcare data collection from EHR systems, clinical notes, imaging, and wearable devices.",
+  },
+  {
+    title: "Medical Image, Video & Audio Annotation",
+    description: "High-quality labeled datasets for computer vision models in radiology, pathology, and clinical video analysis.",
+  },
+  {
+    title: "Natural Language Processing",
+    description: "NLP for clinical notes & research transcripts — documentation reduction, diagnostic coding, and literature review automation.",
+  },
+  {
+    title: "Computer Vision for Clinical Workflows",
+    description: "Computer vision solutions tuned for clinical workflows — wound assessment, mobility monitoring, real-time clinical environment surveillance.",
+  },
+  {
+    title: "Research Data Cataloging & Labeling Pipelines",
+    description: "End-to-end MLOps pipelines from data ingestion through model training, validation, deployment, and monitoring.",
+  },
 ];
 
-const aiTransformations = [
-  "Automated clinical documentation reducing nurse charting time by up to 40%",
-  "Predictive patient deterioration models for early intervention in acute care settings",
-  "AI-assisted diagnostic imaging review supporting radiologist workflow in Lee Health network",
-  "Natural language intake and triage systems for FGCU student health and community clinics",
+const transformationItems = [
+  {
+    title: "Marieb Research Data Platform",
+    description: "A proposed research data backbone across approved FGCU healthcare partner workflows, built to reduce admin friction and accelerate faculty studies.",
+  },
+  {
+    title: "Clinical Placement Optimization",
+    description: "Improve student-supervisor and Lee Health unit matching at scale.",
+  },
+  {
+    title: "Dean's AI Co-Pilot",
+    description: "A private AI co-pilot for Marieb leadership — helping convert documents, history, and partnerships into grant drafts, leadership briefs, partnership notes, and donor follow-ups.",
+  },
+  {
+    title: "Predictive Student Success",
+    description: "Predictive student-support models that flag risk early and support early intervention — helping protect strong licensure and employment outcomes.",
+  },
 ];
 
-const agentsSandboxGrid = [
-  { title: "Real-time Clinical Decisioning", description: "AI agents monitoring patient vitals, lab values, and clinical notes to surface time-sensitive alerts and recommendations." },
-  { title: "Operational Automation", description: "Scheduling, supply chain, staffing optimization, and administrative workflow automation for healthcare systems." },
-  { title: "Safety-first Deployment", description: "All agents operate in human-in-the-loop mode with full audit trails, explainability layers, and override controls." },
-  { title: "Student Learning Path", description: "Structured curriculum for students to design, test, and deploy healthcare AI agents in supervised sandbox environments." },
+const agentsImpact = [
+  {
+    title: "Real-time Clinical & Care Decisioning",
+    description: "Agents review RIA + CC streams, surface risk signals, and recommend staff-reviewed interventions without waiting for the next shift.",
+  },
+  {
+    title: "Operational Automation",
+    description: "Clinical-placement scheduling, accreditation paperwork, scholarship matching, donor reporting — automate routine workflows with human-in-the-loop.",
+  },
+  {
+    title: "Failure Reduction Before Patients Are Even Involved",
+    description: "Simulation-driven testing helps validate agent behavior before patient exposure with dementia residents, IDD individuals, and post-surgical patients.",
+  },
 ];
 
 export default function AIServices() {
   return (
-    <section id="ai-services" className="bg-[#F9FAFB] py-20 px-4 sm:px-6">
+    <section id="ai-services" className="bg-[#F9FAFB] py-24 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         <SectionHeader
-          badge="In partnership with Anolytics (since 2009)"
+          badge="In partnership with IndiVillage since 2009"
           badgeVariant="blue"
-          title="AI Services & AI Agents"
+          title="AI Services & Data"
           titleClassName="text-[#0A2F6B]"
           subtitle="Enterprise-grade AI data services and autonomous agent frameworks built specifically for healthcare."
           subtitleClassName="text-[#374151]"
         />
 
-        {/* 7.1 AI Services */}
+        {/* AI Services section */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="mb-14"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={fade}
+          className="mb-16"
         >
-          <h3 className="text-xl font-bold text-[#0A2F6B] mb-6">7.1 AI Services</h3>
-          <FeatureGrid items={aiServicesGrid} />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h3 className="text-2xl font-bold text-[#0A2F6B] mb-6">AI Services & Data</h3>
+              <div className="space-y-4">
+                {aiServicesCapabilities.map((cap) => (
+                  <div key={cap.title} className="flex gap-4 items-start">
+                    <div className="w-2 h-2 rounded-full bg-[#1B6FD8] mt-2 flex-shrink-0" />
+                    <div>
+                      <div className="font-bold text-[#0A2F6B] text-sm">{cap.title}</div>
+                      <div className="text-[#374151] text-sm leading-relaxed">{cap.description}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="relative w-full rounded-2xl overflow-hidden border border-[#B5D4F4]" style={{ aspectRatio: "4/3" }}>
+              <Image
+                src="/ai%20and%20services%20indivillage.png"
+                alt="AI Services with IndiVillage"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 600px"
+              />
+            </div>
+          </div>
         </motion.div>
 
-        {/* AI transformation */}
+        {/* AI Driven Transformation */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="mb-14"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={fade}
+          className="mb-16"
         >
-          <h3 className="text-xl font-bold text-[#0A2F6B] mb-4">AI Transformation Opportunities at FGCU</h3>
-          <div className="bg-white rounded-xl p-6 border border-[#B5D4F4]">
-            <ul className="space-y-3">
-              {aiTransformations.map((item, i) => (
-                <li key={i} className="flex items-start gap-2 text-[#374151] text-sm">
-                  <span className="text-[#1B6FD8] font-bold mt-0.5">•</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div className="relative w-full rounded-2xl overflow-hidden border border-[#B5D4F4]" style={{ aspectRatio: "16/10" }}>
+              <Image
+                src="/AI%20Driven%20Transformation%20Opportunities.png"
+                alt="AI Driven Transformation Opportunities"
+                fill
+                className="object-contain bg-white"
+                sizes="(max-width: 1024px) 100vw, 600px"
+              />
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold text-[#0A2F6B] mb-6">AI Driven Transformation Opportunities</h3>
+              <div className="space-y-4">
+                {transformationItems.map((item) => (
+                  <div key={item.title} className="bg-white border border-[#B5D4F4] rounded-xl p-5 hover:border-[#1B6FD8] transition-colors">
+                    <h4 className="font-bold text-[#0A2F6B] text-sm mb-1">{item.title}</h4>
+                    <p className="text-[#374151] text-sm leading-relaxed">{item.description}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="grid grid-cols-2 gap-4 mt-6">
+                <div className="bg-[#0A2F6B] rounded-xl p-5 text-center">
+                  <div className="text-3xl font-bold text-white mb-1">40%+</div>
+                  <div className="text-[#B5D4F4] text-xs">Workflow Efficiency Potential</div>
+                </div>
+                <div className="bg-[#1B6FD8] rounded-xl p-5 text-center">
+                  <div className="text-3xl font-bold text-white mb-1">24/7</div>
+                  <div className="text-[#E6F1FB] text-xs">Institutional Intelligence Layer</div>
+                </div>
+              </div>
+            </div>
           </div>
         </motion.div>
 
-        {/* Large stat cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-14">
-          <div className="bg-[#0A2F6B] rounded-2xl p-8 text-center">
-            <div className="text-4xl font-bold text-white mb-2">40%+</div>
-            <div className="text-[#B5D4F4] text-base">Reduction in clinical documentation time with AI-assisted charting</div>
-          </div>
-          <div className="bg-[#1B6FD8] rounded-2xl p-8 text-center">
-            <div className="text-4xl font-bold text-white mb-2">24/7</div>
-            <div className="text-[#E6F1FB] text-base">AI agent monitoring and operational support — no downtime in patient care coverage</div>
-          </div>
-        </div>
-
-        {/* 7.2 AI Agents Sandbox */}
+        {/* AI Agents */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="mb-14"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={fade}
+          className="mb-16"
         >
-          <div className="flex items-center gap-3 mb-6">
-            <h3 className="text-xl font-bold text-[#0A2F6B]">7.2 AI Agents Sandbox</h3>
-            <SectionBadge text="Powered by Janus (YC-backed company)" variant="gold" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="flex items-center gap-3 mb-2">
+                <h3 className="text-2xl font-bold text-[#0A2F6B]">AI Agents</h3>
+                <span className="text-xs bg-[#FAEEDA] text-[#BA7517] font-bold px-3 py-1 rounded-full">Powered by Janus — YC-backed</span>
+              </div>
+              <p className="text-[#374151] text-sm mb-6 leading-relaxed">
+                An AI-agent sandbox where students can build, test, validate, and deploy AI agents at scale for healthcare workflows, care coordination, research operations, and student services before any student-built workflow is considered for real-world use.
+              </p>
+              <p className="text-[#1B6FD8] font-bold text-base italic mb-6">&ldquo;From dashboards to decision-making systems.&rdquo;</p>
+              <div className="space-y-4">
+                {agentsImpact.map((item) => (
+                  <div key={item.title} className="bg-[#E6F1FB] rounded-xl p-5">
+                    <h4 className="font-bold text-[#0A2F6B] text-sm mb-1">{item.title}</h4>
+                    <p className="text-[#374151] text-sm leading-relaxed">{item.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="relative w-full rounded-2xl overflow-hidden border border-[#B5D4F4]" style={{ aspectRatio: "4/3" }}>
+              <Image
+                src="/ai%20agent%20impact.png"
+                alt="AI Agents impact at FGCU"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 600px"
+              />
+            </div>
           </div>
-          <FeatureGrid items={agentsSandboxGrid} cardClassName="bg-white" />
         </motion.div>
 
-        {/* Case studies */}
-        <div className="space-y-6">
-          <CaseStudyBlock
-            title="Stanford AIMI — AI in Medical Imaging"
-            context="Stanford's Center for AI in Medicine & Imaging needed to scale its AI model validation pipeline to handle growing volumes of radiology studies while maintaining radiologist oversight."
-            solution="Deployed automated AI triaging pipeline processing 50,000+ studies/month, flagging high-priority findings for immediate radiologist review while routing routine studies through streamlined workflows."
-            impact="Mean time to diagnosis for critical findings reduced by 52%. Radiologist capacity effectively increased 1.8x. Pipeline methodology now licensed to 12 health systems."
-          />
-          <CaseStudyBlock
-            title="MIT Jameel Clinic — AI Healthcare Agents"
-            context="MIT's Abdul Latif Jameel Clinic for Machine Learning in Health was building autonomous clinical decision support agents for intensive care settings where rapid intervention timing is critical."
-            solution="Multi-agent system combining sepsis prediction, medication interaction checking, and care pathway optimization — with full explainability and clinical override capabilities at every decision node."
-            impact="Early sepsis detection improved by 4.2 hours average lead time. ICU mortality in participating units decreased 8.3%. Agents now deployed in 6 teaching hospitals in pilot programs."
-          />
+        {/* Case Studies */}
+        <div className="space-y-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={fade}
+          >
+            <CaseStudyBlock
+              title="AI Services at Stanford AIMI"
+              image="/Case%20Study%20AI%20Services%20at%20Stanford%20AIMI.png"
+              imageAlt="Stanford AIMI AI Services case study"
+              context="In 2018, Stanford School of Medicine launched the Center for Artificial Intelligence in Medicine & Imaging (AIMI) to solve a fundamental problem: hospitals had vast clinical data, but no scalable way to turn it into AI models that could actually help patients."
+              solution="A unified clinical data & AI infrastructure spanning Stanford Health Care, Stanford Children's Hospital, the University Healthcare Alliance, and Packard Children's Health Alliance clinics. AIMI built an Industry Affiliates Program that brings tech companies (e.g., CARPL.ai) into direct collaboration with Stanford faculty on de-identified, IRB-ready clinical datasets."
+              impact="150+ affiliated Stanford faculty publishing in medicine and AI. 20+ AI-ready clinical datasets released publicly for research worldwide. $3M+ in research grants disbursed to faculty. Commercial licensing program: $70K per dataset per year — a sustainable revenue model."
+              source="Source: Stanford AIMI Launch"
+            />
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={fade}
+          >
+            <CaseStudyBlock
+              title="AI Agents at MIT Jameel Clinic"
+              image="/Case%20Study%20AI%20Agents%20at%20MIT%20Jameel%20Clinic.png"
+              imageAlt="MIT Jameel Clinic AI Agents case study"
+              context="In 2018, MIT and Community Jameel co-founded the Abdul Latif Jameel Clinic for Machine Learning in Health with the mission to &quot;revolutionize the prevention, detection, and treatment of disease.&quot; The challenge: most clinical AI was being built but rarely deployed in real hospitals."
+              solution="Built the Jameel Clinic AI Hospital Network, partnering with hospitals globally to deploy MIT-developed AI tools, backed by a £3.5M Wellcome Trust grant. Flagship deployment: Mirai, a breast cancer risk assessment tool — the most advanced tool of its kind and the first clinical AI from the clinic mature enough for real-world deployment."
+              impact="41 hospitals in 13 countries in the AI Hospital Network — providing free AI tool access. AI & Health Summer High School Bootcamp — 52 students annually from US and abroad get hands-on AI-for-health training."
+              source="Source: MIT Jameel Mirai"
+            />
+          </motion.div>
         </div>
       </div>
     </section>

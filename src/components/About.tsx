@@ -2,16 +2,25 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { ChevronDown } from "lucide-react";
 
-const partners = [
-  { name: "Machani Robotics", subtitle: "Humanoid Robotics Partner" },
-  { name: "Janus", subtitle: "YC-backed AI Agents" },
-  { name: "Anolytics", subtitle: "AI Services (since 2009)" },
-  { name: "Devic.Earth", subtitle: "Drones & UAV (since 2021)" },
+const logoPartners = [
+  { name: "Machani Robotics", logo: "/MR.png", subtitle: "Humanoid Robotics" },
+  { name: "IndiVillage", logo: "/IV.png", subtitle: "AI Services" },
+  { name: "Janus", logo: "/JANUS.png", subtitle: "AI Agents · YC-backed" },
+  { name: "Next Defence", logo: "/ND.png", subtitle: "Drones & AR/VR" },
+  { name: "Okulo Aerospace", logo: "/OKULO.png", subtitle: "Drone Intelligence" },
+  { name: "ATRESA", logo: "/TRESA.png", subtitle: "Electric Mobility" },
+  { name: "Tsalla Aerospace", logo: "/TSALLA.png", subtitle: "UAV Platforms" },
+  { name: "Inkers", logo: "/INKERS.png", subtitle: "Computer Vision" },
+  { name: "FGCU", logo: "/FGCU.png", subtitle: "University Partner" },
+];
+
+const textPartners = [
   { name: "Fountain Life", subtitle: "Longevity & Diagnostics" },
-  { name: "BioPeak", subtitle: "Health Optimization" },
+  { name: "BioPeak", subtitle: "Executive Health" },
   { name: "Celularity", subtitle: "Cell Therapy" },
   { name: "AiVita Biomedical", subtitle: "Immunotherapy" },
   { name: "Immunis Biomedical", subtitle: "Immune Restoration" },
@@ -21,8 +30,8 @@ const partners = [
   { name: "Global Health X", subtitle: "Global Research" },
   { name: "Human Immunome Project", subtitle: "Precision Medicine" },
   { name: "Lee Health", subtitle: "Regional Health System" },
-  { name: "Shell Point", subtitle: "Senior Living Partner" },
-  { name: "Shady Rest", subtitle: "Long-term Care Partner" },
+  { name: "Shell Point", subtitle: "Senior Living" },
+  { name: "Shady Rest", subtitle: "Long-term Care" },
   { name: "Baker Senior Center", subtitle: "Community Services" },
 ];
 
@@ -107,7 +116,35 @@ export default function About() {
           </motion.div>
         </div>
 
-        {/* Partner grid */}
+        {/* Logo partner grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5 }}
+          className="mb-10"
+        >
+          <h3 className="text-xl font-bold text-[#0A2F6B] mb-2 text-center">Our Partners</h3>
+          <p className="text-[#374151] text-sm text-center mb-8">18+ industry partnerships across robotics, biotech, AI, and drones</p>
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4">
+            {logoPartners.map((partner) => (
+              <div
+                key={partner.name}
+                className="bg-white border border-[#B5D4F4] rounded-xl p-4 flex flex-col items-center gap-2 hover:border-[#1B6FD8] hover:shadow-md transition-all duration-200"
+              >
+                <div className="relative w-14 h-10 flex-shrink-0">
+                  <Image src={partner.logo} alt={partner.name} fill className="object-contain" />
+                </div>
+                <div className="text-center">
+                  <div className="font-semibold text-[#0A2F6B] text-xs leading-tight">{partner.name}</div>
+                  <div className="text-[#9CA3AF] text-[10px] mt-0.5 leading-tight">{partner.subtitle}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Additional text partners */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -115,15 +152,14 @@ export default function About() {
           transition={{ duration: 0.5 }}
           className="mb-16"
         >
-          <h3 className="text-xl font-bold text-[#0A2F6B] mb-6 text-center">Our Partners</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            {partners.map((partner) => (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
+            {textPartners.map((partner) => (
               <div
                 key={partner.name}
-                className="bg-white border border-[#B5D4F4] rounded-xl p-4 text-center hover:border-[#1B6FD8] hover:shadow-sm transition-all duration-200"
+                className="bg-white border border-[#B5D4F4] rounded-xl px-3 py-3 text-center hover:border-[#1B6FD8] hover:shadow-sm transition-all duration-200"
               >
-                <div className="font-bold text-[#0A2F6B] text-sm mb-1">{partner.name}</div>
-                <div className="text-[#9CA3AF] text-xs">{partner.subtitle}</div>
+                <div className="font-semibold text-[#0A2F6B] text-xs leading-tight mb-0.5">{partner.name}</div>
+                <div className="text-[#9CA3AF] text-[10px] leading-tight">{partner.subtitle}</div>
               </div>
             ))}
           </div>
